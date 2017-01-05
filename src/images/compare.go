@@ -13,7 +13,15 @@ var (
 	diffFolderPath = "../diff/"
 )
 
+func createDiffFolder() {
+	if _, err := os.Stat(diffFolderPath); os.IsNotExist(err) {
+		os.Mkdir(diffFolderPath, os.ModePerm)
+	}
+}
+
 func CompareImages(actualPath, expectedPath string) bool {
+	createDiffFolder()
+
 	equals := true
 	rgba := color.RGBA64{}
 	var bounds image.Rectangle
